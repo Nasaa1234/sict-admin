@@ -165,57 +165,52 @@ export const AddDetailModal: React.FC<AddDetailModalProps> = ({
       </div>
 
       {/* Uploaded Images Grid */}
-      {(prop === "images" ? sectionDetail.images : sectionDetail.listItems)
-        ?.length > 0 && (
-        <div>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
-            Uploaded images (
-            {(prop === "images"
-              ? sectionDetail.images
-              : sectionDetail.listItems
-            )?.length || 0}
-            )
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {(prop === "images"
-              ? sectionDetail.images
-              : sectionDetail.listItems
-            )?.map((el: string, index: number) => (
-              <div key={index} className="relative group">
-                <Image
-                  src={el}
-                  alt={`${label}-${index}`}
-                  width={150}
-                  height={150}
-                  className="rounded-lg object-cover w-full h-24 border border-gray-300"
-                />
-                <Button
-                  type="button"
-                  variant="destructive"
-                  size="icon"
-                  onClick={() => handleRemoveImage(prop, index)}
-                  className="absolute top-1 right-1 h-6 w-6 rounded-full opacity-0 group-hover:opacity-100"
-                  title="Remove image"
-                >
-                  <svg
-                    className="w-3 h-3"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+      {(() => {
+        const currentArray =
+          prop === "images" ? sectionDetail.images : sectionDetail.listItems
+        return currentArray && currentArray.length > 0 ? (
+          <div>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+              Uploaded images ({currentArray.length})
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {currentArray.map((el: string, index: number) => (
+                <div key={index} className="relative group">
+                  <Image
+                    src={el}
+                    alt={`${label}-${index}`}
+                    width={150}
+                    height={150}
+                    className="rounded-lg object-cover w-full h-24 border border-gray-300"
+                  />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="icon"
+                    onClick={() => handleRemoveImage(prop, index)}
+                    className="absolute top-1 right-1 h-6 w-6 rounded-full opacity-0 group-hover:opacity-100"
+                    title="Remove image"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </Button>
-              </div>
-            ))}
+                    <svg
+                      className="w-3 h-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </Button>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        ) : null
+      })()}
     </div>
   )
 
